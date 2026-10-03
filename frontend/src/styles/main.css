@@ -1,0 +1,440 @@
+/* 铁路工务：铁路青主色 + 浅底深字 */
+:root {
+  --rw-primary: #00838f;
+  --rw-primary-dark: #005f68;
+  --rw-primary-soft: #e0f4f6;
+  --rw-bg: #f2f6f7;
+  --rw-panel: #ffffff;
+  --rw-border: #d5e3e5;
+  --rw-text: #1d2b2e;
+  --rw-text-sub: #5d7579;
+  --rw-danger: #c62828;
+  --rw-warn: #e08700;
+  --rw-ok: #2e9e5b;
+  --rw-info: #1565c0;
+  --rw-dark: #4a5b63;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body,
+#app {
+  height: 100%;
+  margin: 0;
+}
+
+body {
+  background: var(--rw-bg);
+  color: var(--rw-text);
+  font-family: 'PingFang SC', 'Microsoft YaHei', 'Helvetica Neue', Arial, sans-serif;
+  font-size: 14px;
+}
+
+/* ---------- 顶栏 ---------- */
+.topbar {
+  position: sticky;
+  top: 0;
+  z-index: 20;
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding: 10px 20px;
+  background: linear-gradient(90deg, #005f68 0%, var(--rw-primary) 55%, #26a69a 100%);
+  color: #fff;
+  box-shadow: 0 2px 10px rgba(0, 95, 104, 0.24);
+}
+
+.topbar .brand {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 17px;
+  font-weight: 700;
+  white-space: nowrap;
+}
+
+.topbar .brand-mark {
+  width: 32px;
+  height: 32px;
+  border-radius: 6px;
+  background: rgba(255, 255, 255, 0.18);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 17px;
+}
+
+.topbar .brand-sub {
+  font-size: 12px;
+  font-weight: 400;
+  opacity: 0.85;
+}
+
+.line-picker {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.line-picker .line-label {
+  font-size: 12px;
+  opacity: 0.9;
+  white-space: nowrap;
+}
+
+.line-picker .el-select {
+  width: 220px;
+}
+
+.line-picker :deep(.el-select__wrapper) {
+  background: rgba(255, 255, 255, 0.16);
+  box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.5);
+  color: #fff;
+}
+
+.line-picker :deep(.el-select__placeholder) {
+  color: rgba(255, 255, 255, 0.85);
+}
+
+.top-stats {
+  margin-left: auto;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.stat-chip {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  min-width: 64px;
+  padding: 4px 9px;
+  border-radius: 8px;
+  background: rgba(255, 255, 255, 0.14);
+  border: 1px solid rgba(255, 255, 255, 0.22);
+}
+
+.stat-chip b {
+  font-size: 16px;
+  line-height: 1.1;
+}
+
+.stat-chip span {
+  font-size: 11px;
+  opacity: 0.85;
+}
+
+.stat-chip.is-alert {
+  background: rgba(198, 40, 40, 0.5);
+}
+
+/* ---------- 主体：左区段列表 + 右内容 ---------- */
+.shell {
+  min-height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.body-row {
+  flex: 1;
+  display: flex;
+  align-items: stretch;
+  min-height: 0;
+}
+
+.sidenav {
+  width: 232px;
+  flex: 0 0 232px;
+  background: #fff;
+  border-right: 1px solid var(--rw-border);
+  padding: 12px 12px 24px;
+  overflow-y: auto;
+}
+
+.sidenav h4 {
+  margin: 0 0 8px;
+  font-size: 13px;
+  color: var(--rw-primary-dark);
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.sec-item {
+  display: block;
+  width: 100%;
+  text-align: left;
+  padding: 8px 10px;
+  margin-bottom: 6px;
+  border: 1px solid var(--rw-border);
+  border-radius: 8px;
+  background: #fbfdfd;
+  cursor: pointer;
+  transition: all 0.15s;
+}
+
+.sec-item:hover {
+  border-color: var(--rw-primary);
+  background: var(--rw-primary-soft);
+}
+
+.sec-item.is-on {
+  border-color: var(--rw-primary);
+  box-shadow: inset 3px 0 0 var(--rw-primary);
+  background: var(--rw-primary-soft);
+}
+
+.sec-item .sec-no {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-weight: 600;
+  font-size: 13px;
+}
+
+.sec-item .sec-mile {
+  font-size: 11px;
+  color: var(--rw-text-sub);
+  margin-top: 2px;
+}
+
+.sec-dot {
+  width: 9px;
+  height: 9px;
+  border-radius: 50%;
+  display: inline-block;
+}
+
+.main-col {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+}
+
+/* 横向模块条 */
+.navbar {
+  display: flex;
+  gap: 6px;
+  padding: 8px 16px;
+  background: #fff;
+  border-bottom: 1px solid var(--rw-border);
+  flex-wrap: wrap;
+}
+
+.nav-btn {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 13px;
+  border: 1px solid transparent;
+  border-radius: 20px;
+  background: #f1f6f7;
+  color: var(--rw-text-sub);
+  cursor: pointer;
+  font-size: 13px;
+  transition: all 0.15s;
+}
+
+.nav-btn:hover {
+  background: var(--rw-primary-soft);
+  color: var(--rw-primary-dark);
+}
+
+.nav-btn.is-on {
+  background: var(--rw-primary);
+  border-color: var(--rw-primary-dark);
+  color: #fff;
+  font-weight: 600;
+}
+
+.stage {
+  flex: 1;
+  padding: 14px 16px 28px;
+  min-width: 0;
+}
+
+.panel {
+  background: var(--rw-panel);
+  border: 1px solid var(--rw-border);
+  border-radius: 10px;
+  padding: 13px 15px;
+  margin-bottom: 14px;
+}
+
+.panel-head {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 12px;
+}
+
+.panel-head h3 {
+  margin: 0;
+  font-size: 15px;
+  color: var(--rw-primary-dark);
+}
+
+.panel-head .panel-sub {
+  font-size: 12px;
+  color: var(--rw-text-sub);
+}
+
+.panel-head .panel-extra {
+  margin-left: auto;
+  display: flex;
+  gap: 8px;
+  align-items: center;
+}
+
+/* ---------- 里程状态条 ---------- */
+.mileage-bar {
+  border: 1px solid var(--rw-border);
+  border-radius: 10px;
+  background: linear-gradient(180deg, #fbfefefe 0%, #f4fafb 100%);
+  padding: 12px 14px 8px;
+}
+
+.mileage-bar svg {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+.mile-tick-txt {
+  font-size: 11px;
+  fill: var(--rw-text-sub);
+}
+
+.mile-sec-txt {
+  font-size: 11px;
+  font-weight: 700;
+  fill: #ffffff;
+}
+
+.mile-legend {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 14px;
+  font-size: 12px;
+  color: var(--rw-text-sub);
+  margin-top: 6px;
+}
+
+.mile-legend i {
+  display: inline-block;
+  width: 14px;
+  height: 10px;
+  border-radius: 2px;
+  margin-right: 5px;
+  vertical-align: middle;
+  border: 1px solid #b7c9cb;
+}
+
+/* ---------- 通用小块 ---------- */
+.kv-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+  gap: 10px;
+}
+
+.kv {
+  background: #f7fbfb;
+  border: 1px solid var(--rw-border);
+  border-radius: 8px;
+  padding: 8px 10px;
+}
+
+.kv span {
+  display: block;
+  font-size: 11px;
+  color: var(--rw-text-sub);
+}
+
+.kv b {
+  font-size: 15px;
+}
+
+/* ---------- 天窗网格（纯 CSS） ---------- */
+.window-grid {
+  display: grid;
+  grid-template-columns: 96px repeat(12, minmax(0, 1fr));
+  border: 1px solid var(--rw-border);
+  border-radius: 8px;
+  overflow: hidden;
+  font-size: 11px;
+}
+
+.window-grid .wg-cell {
+  border-right: 1px solid #eaf1f2;
+  border-bottom: 1px solid #eaf1f2;
+  min-height: 26px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.window-grid .wg-head {
+  background: #eef6f7;
+  color: var(--rw-text-sub);
+  font-weight: 600;
+}
+
+.window-grid .wg-date {
+  background: #f7fbfb;
+  color: var(--rw-text);
+  font-weight: 600;
+  justify-content: flex-start;
+  padding-left: 6px;
+}
+
+.wg-slot {
+  height: 22px;
+  margin: 0 1px;
+  border-radius: 3px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #fff;
+  font-size: 10px;
+  white-space: nowrap;
+  overflow: hidden;
+}
+
+.wg-free {
+  color: #cbd8da;
+}
+
+/* ---------- 表格行状态 ---------- */
+.el-table .row-heavy {
+  --el-table-tr-bg-color: #fdecec;
+  color: var(--rw-danger);
+}
+
+.el-table .row-low {
+  --el-table-tr-bg-color: #fff4e5;
+}
+
+.el-table .row-done {
+  --el-table-tr-bg-color: #f4f6f6;
+  color: var(--rw-text-sub);
+}
+
+.muted {
+  color: var(--rw-text-sub);
+}
+
+.mono {
+  font-family: 'SFMono-Regular', Consolas, monospace;
+}
+
+.tag-dot {
+  display: inline-block;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  margin-right: 5px;
+}
